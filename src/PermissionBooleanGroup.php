@@ -25,7 +25,7 @@ class PermissionBooleanGroup extends BooleanGroup
 
         $permissionClass = app(PermissionRegistrar::class)->getPermissionClass();
 
-        $options = $permissionClass::get()->pluck('name', 'name')->toArray();
+        $options = $permissionClass::get()->pluck('display_name', 'name')->toArray();
 
         $this->options($options);
     }

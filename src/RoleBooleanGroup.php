@@ -25,7 +25,7 @@ class RoleBooleanGroup extends BooleanGroup
 
         $roleClass = app(PermissionRegistrar::class)->getRoleClass();
 
-        $options = $roleClass::get()->pluck('name', 'name')->toArray();
+        $options = $roleClass::get()->pluck('display_name', 'name')->toArray();
 
         $this->options($options);
     }
