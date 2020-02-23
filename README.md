@@ -26,7 +26,7 @@ public function tools()
 {
     return [
         // ...
-        \Vyuldashev\NovaPermission\NovaPermissionTool::make(),
+        \Zhouzishu\NovaPermission\NovaPermissionTool::make(),
     ];
 }
 ```
@@ -37,7 +37,7 @@ Next, add middleware to `config/nova.php`
 // in config/nova.php
 'middleware' => [
     // ...
-    \Vyuldashev\NovaPermission\ForgetCachedPermissions::class,
+    \Zhouzishu\NovaPermission\ForgetCachedPermissions::class,
 ],
 ```
 
@@ -51,8 +51,8 @@ public function fields(Request $request)
 {
     return [
         // ...
-        MorphToMany::make('Roles', 'roles', \Vyuldashev\NovaPermission\Role::class),
-        MorphToMany::make('Permissions', 'permissions', \Vyuldashev\NovaPermission\Permission::class),
+        MorphToMany::make('Roles', 'roles', \Zhouzishu\NovaPermission\Role::class),
+        MorphToMany::make('Permissions', 'permissions', \Zhouzishu\NovaPermission\Permission::class),
     ];
 }
 ```
@@ -61,8 +61,8 @@ Or if you want to attach multiple permissions at once, use `RoleBooleanGroup` an
 
 ```php
 // ...
-use Vyuldashev\NovaPermission\PermissionBooleanGroup;
-use Vyuldashev\NovaPermission\RoleBooleanGroup;
+use Zhouzishu\NovaPermission\PermissionBooleanGroup;
+use Zhouzishu\NovaPermission\RoleBooleanGroup;
 
 public function fields(Request $request)
 {
@@ -87,7 +87,7 @@ public function tools()
 {
     return [
         // ...
-        \Vyuldashev\NovaPermission\NovaPermissionTool::make()
+        \Zhouzishu\NovaPermission\NovaPermissionTool::make()
             ->roleResource(CustomRole::class)
             ->permissionResource(CustomPermission::class),
     ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\NovaPermission;
+namespace Zhouzishu\NovaPermission;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -97,11 +97,10 @@ class Permission extends Resource
                 ->creationRules('unique:'.config('permission.table_names.permissions'))
                 ->updateRules('unique:'.config('permission.table_names.permissions').',name,{{resourceId}}'),
 
-            Text::make(__('nova-permission-tool::permissions.display_name'), function () {
-                return __('nova-permission-tool::permissions.display_names.'.$this->name);
-            })->canSee(function () {
-                return is_array(__('nova-permission-tool::permissions.display_names'));
-            }),
+            Text::make(__('nova-permission-tool::permissions.display_name'), 'display_name')
+                ->rules(['required', 'string', 'max:255'])
+                ->creationRules('unique:'.config('permission.table_names.permissions'))
+                ->updateRules('unique:'.config('permission.table_names.permissions').',display_name,{{resourceId}}'),
 
             Select::make(__('nova-permission-tool::permissions.guard_name'), 'guard_name')
                 ->options($guardOptions->toArray())
@@ -110,7 +109,7 @@ class Permission extends Resource
             DateTime::make(__('nova-permission-tool::permissions.created_at'), 'created_at')->exceptOnForms(),
             DateTime::make(__('nova-permission-tool::permissions.updated_at'), 'updated_at')->exceptOnForms(),
 
-            RoleBooleanGroup::make('Roles'),
+            RoleBooleanGroup::make(Role::label(), 'roles'),
 
             MorphToMany::make($userResource::label(), 'users', $userResource)
                 ->searchable()
@@ -159,8 +158,6 @@ class Permission extends Resource
      */
     public function actions(Request $request)
     {
-        return [
-            new AttachToRole,
-        ];
+        return [];
     }
 }

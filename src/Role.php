@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\NovaPermission;
+namespace Zhouzishu\NovaPermission;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -97,6 +97,11 @@ class Role extends Resource
                 ->creationRules('unique:'.config('permission.table_names.roles'))
                 ->updateRules('unique:'.config('permission.table_names.roles').',name,{{resourceId}}'),
 
+            Text::make(__('nova-permission-tool::roles.display_name'), 'display_name')
+                ->rules(['required', 'string', 'max:255'])
+                ->creationRules('unique:'.config('permission.table_names.roles'))
+                ->updateRules('unique:'.config('permission.table_names.roles').',display_name,{{resourceId}}'),
+
             Select::make(__('nova-permission-tool::roles.guard_name'), 'guard_name')
                 ->options($guardOptions->toArray())
                 ->rules(['required', Rule::in($guardOptions)]),
@@ -104,7 +109,7 @@ class Role extends Resource
             DateTime::make(__('nova-permission-tool::roles.created_at'), 'created_at')->exceptOnForms(),
             DateTime::make(__('nova-permission-tool::roles.updated_at'), 'updated_at')->exceptOnForms(),
 
-            PermissionBooleanGroup::make('Permissions'),
+            PermissionBooleanGroup::make(Permission::label(), 'permissions'),
 
             MorphToMany::make($userResource::label(), 'users', $userResource)
                 ->searchable()

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\NovaPermission;
+namespace Zhouzishu\NovaPermission;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;

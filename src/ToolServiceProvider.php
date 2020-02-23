@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\NovaPermission;
+namespace Zhouzishu\NovaPermission;
 
 use Gate;
 use Illuminate\Support\ServiceProvider;
