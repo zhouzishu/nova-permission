@@ -32,7 +32,7 @@ class RolePolicy
 
     public function delete(): bool
     {
-        return true;
+        return false;
     }
 
     public function restore(): bool
